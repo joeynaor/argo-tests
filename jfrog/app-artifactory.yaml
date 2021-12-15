@@ -1,0 +1,25 @@
+# See full spec at https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/application.yaml
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: artifactory
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/jfrog/charts'
+    path: stable/artifactory
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
