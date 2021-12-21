@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: artifactory-test
+  name: xray-test
   namespace: argocd # the namespace of the ArgoCD deployment itself
 spec:
   project: default
@@ -15,20 +15,21 @@ spec:
       allowEmpty: true
 
   source:
-    chart: 'artifactory'
+    chart: 'xray'
     repoURL: 'https://charts.jfrog.io/'
-    targetRevision: 107.27.9
+    targetRevision: 103.37.2
     helm:
       #### Artifactory values.yaml ####
       values: |
-        artifactory:
-          joinKey: 011b61f5c6a5928d4489df5fe6f120569c29c9e9dafb01f720c61853a3d90e2b
-          masterKey: ce2dcb873c3094d5dd8e7a7136158e4f31866d802435306c1855a7213853ee34
-          replicaCount: 2
-
-        databaseUpgradeReady: true
-        unifiedUpgradeAllowed: true
-
+        rabbitmq:
+          auth:
+            password: f4PeLNdq25
         postgresql:
           postgresqlPassword: password
+        xray:
+          joinKey: 011b61f5c6a5928d4489df5fe6f120569c29c9e9dafb01f720c61853a3d90e2b
+          masterKey: b46337c2a998d931246535fd2826928b83e3fb29bc4e5c8972c7c8e23f919b7c
+          jfrogUrl: http://artifactory-test:8082
+        unifiedUpgradeAllowed: true
+        databaseUpgradeReady: true
 
