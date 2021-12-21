@@ -3,8 +3,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: artifactory-dev
-  namespace: argocd
+  name: artifactory-test
+  namespace: argocd # the namespace of the ArgoCD deployment itself
 spec:
   project: default
   destination:
@@ -17,9 +17,9 @@ spec:
       allowEmpty: true
 
   source:
-    repoURL: 'https://github.com/jfrog/charts.git'
-    path: stable/artifactory
-    targetRevision: 7.27.9
+    chart: 'artifactory'
+    repoURL: 'https://charts.jfrog.io/'
+    targetRevision: 107.27.9
     helm:
       #### Artifactory values.yaml ####
       values: |
