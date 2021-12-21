@@ -7,14 +7,6 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: 'https://github.com/jfrog/charts'
-    path: stable/artifactory
-    targetRevision: HEAD
-    helm:
-      values: |
-        artifactory:
-          replicaCount: 2
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
@@ -22,5 +14,14 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+
+  source:
+    repoURL: 'https://github.com/jfrog/charts.git'
+    path: stable/artifactory
+    targetRevision: HEAD
+    helm:
+      #### Artifactory values.yaml ####
+      values: |
+        artifactory:
+          replicaCount: 1
+
