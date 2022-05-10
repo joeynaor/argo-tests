@@ -15,7 +15,7 @@ spec:
       allowEmpty: true
 
   source:
-    chart: 'couchbase/couchbase-operator'
+    chart: 'couchbase-operator'
     repoURL: 'https://couchbase-partners.github.io/helm-charts/'
     targetRevision: 2.3.001
     helm:
