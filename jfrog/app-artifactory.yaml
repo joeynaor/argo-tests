@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: couchbase-test
+  name: artifactory-test
   namespace: argocd # the namespace of the ArgoCD deployment itself
 spec:
   project: default
@@ -15,11 +15,20 @@ spec:
       allowEmpty: true
 
   source:
-    chart: 'couchbase/couchbase-operator'
-    repoURL: 'https://couchbase-partners.github.io/helm-charts/'
-    # targetRevision: 107.27.9
+    chart: 'artifactory'
+    repoURL: 'https://charts.jfrog.io/'
+    targetRevision: 107.27.9
     helm:
-      #### values.yaml ####
+      #### Artifactory values.yaml ####
       values: |
-        cluster:
-          name: 'My Couchbase Cluster'
+        artifactory:
+          joinKey: 011b61f5c6a5928d4489df5fe6f120569c29c9e9dafb01f720c61853a3d90e2b
+          masterKey: ce2dcb873c3094d5dd8e7a7136158e4f31866d802435306c1855a7213853ee34
+          replicaCount: 1
+
+        databaseUpgradeReady: true
+        unifiedUpgradeAllowed: true
+
+        postgresql:
+          postgresqlPassword: password
+
