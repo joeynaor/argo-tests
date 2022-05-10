@@ -17,7 +17,7 @@ spec:
   source:
     chart: 'couchbase/couchbase-operator'
     repoURL: 'https://couchbase-partners.github.io/helm-charts/'
-    # targetRevision: 107.27.9
+    targetRevision: 2.3.001
     helm:
       #### values.yaml ####
       values: |
