@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-test
+  namespace: argocd # the namespace of the ArgoCD deployment itself
+spec:
+  project: default
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+
+  source:
+    chart: 'nginx'
+    repoURL: 'https://charts.bitnami.com/bitnami'
+    targetRevision: 10.2.1
+    #helm:
+      #### values.yaml ####
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: psql-test
+  namespace: argocd # the namespace of the ArgoCD deployment itself
+spec:
+  project: default
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+
+  source:
+    chart: 'postgresql'
+    repoURL: 'https://charts.bitnami.com/bitnami'
+    targetRevision: 11.1.28
+    #helm:
+      #### values.yaml ####
